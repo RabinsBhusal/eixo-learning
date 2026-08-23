@@ -1,0 +1,6 @@
+{
+  "name": "EIXO Learning",
+  "description": "Professional online accounting and finance education platform combining theoretical principles with practical software skills in Xero, QuickBooks, and Sage.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
