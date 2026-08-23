@@ -125,9 +125,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [currentUserId, setCurrentUserId] = useState<string | null>(() => {
     try {
-      return localStorage.getItem(STORAGE_KEYS.CURRENT_USER_ID) || 'user-student-1';
+      return localStorage.getItem(STORAGE_KEYS.CURRENT_USER_ID) || null;
     } catch {
-      return 'user-student-1';
+      return null;
     }
   });
 

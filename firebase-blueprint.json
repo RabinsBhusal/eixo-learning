@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account profile and role information",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["student", "admin"] },
+        "enrolledCourseIds": { "type": "array" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "role"]
+    },
+    "UserProgress": {
+      "title": "UserProgress",
+      "description": "Student course and lesson progress record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "courseId": { "type": "string" },
+        "completedLessonIds": { "type": "array" },
+        "percentComplete": { "type": "number" },
+        "lastAccessedLessonId": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "courseId", "completedLessonIds", "percentComplete"]
+    },
+    "CourseNote": {
+      "title": "CourseNote",
+      "description": "Personal notebook entry for a student on a specific course lesson",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "courseId": { "type": "string" },
+        "lessonId": { "type": "string" },
+        "content": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "courseId", "lessonId", "content"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile document"
+    },
+    "/progress/{progressId}": {
+      "schema": "UserProgress",
+      "description": "Student progress document"
+    },
+    "/notes/{noteId}": {
+      "schema": "CourseNote",
+      "description": "Student course notes document"
+    }
+  }
+}

@@ -4,6 +4,7 @@ import { VimeoPlayer } from '../../components/course/VimeoPlayer';
 import { DoubleEntrySandbox } from '../../components/course/DoubleEntrySandbox';
 import { InteractiveQuiz } from '../../components/course/InteractiveQuiz';
 import { SlideDeckViewer } from '../../components/course/SlideDeckViewer';
+import { GoogleSlidesViewer } from '../../components/course/GoogleSlidesViewer';
 import { SoftwareScreenshotsViewer } from '../../components/course/SoftwareScreenshotsViewer';
 import { CertificateModal } from '../../components/ui/CertificateModal';
 import {
@@ -358,10 +359,23 @@ export const CoursePlayerPage: React.FC = () => {
                   </div>
                 )}
 
-                {/* 2. SLIDES & PDF DECK TAB */}
+                {/* 2. GOOGLE SLIDES & PDF DECK TAB */}
                 {activeTab === 'slides' && (
-                  <div>
-                    <SlideDeckViewer />
+                  <div className="space-y-6">
+                    <GoogleSlidesViewer
+                      courseTitle={course.title}
+                      lessonTitle={activeLesson.title}
+                    />
+                    
+                    {/* Deep-Dive Interactive Slide Framework */}
+                    <div className="pt-4 border-t border-white/10">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                          Structured Module Slide Breakdown & Accounting Formulae
+                        </h3>
+                      </div>
+                      <SlideDeckViewer />
+                    </div>
                   </div>
                 )}
 
