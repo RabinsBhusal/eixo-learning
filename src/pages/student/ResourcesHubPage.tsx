@@ -64,7 +64,7 @@ export const ResourcesHubPage: React.FC = () => {
             onClick={() => setActiveViewMode('slides')}
             className={`px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition-all ${
               activeViewMode === 'slides'
-                ? 'bg-amber-600 text-white shadow-md'
+                ? 'bg-indigo-600 text-white shadow-md'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -112,7 +112,7 @@ export const ResourcesHubPage: React.FC = () => {
                 >
                   <div className="space-y-1.5">
                     <div className="flex items-center justify-between">
-                      <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold uppercase">
+                      <span className="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[10px] font-bold uppercase">
                         {deck.category}
                       </span>
                       <span className="text-[11px] font-mono text-slate-400">{deck.totalSlides} Slides</span>
@@ -128,7 +128,7 @@ export const ResourcesHubPage: React.FC = () => {
                       rel="noopener noreferrer"
                       className="px-3 py-1.5 bg-[#17223b] hover:bg-[#1f2e50] border border-white/10 text-slate-200 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors"
                     >
-                      <ExternalLink className="w-3 h-3 text-amber-400" />
+                      <ExternalLink className="w-3 h-3 text-indigo-400" />
                       <span>Google Slides</span>
                     </a>
 

@@ -7,7 +7,6 @@ import {
   Download,
   FileText,
   Layers,
-  Sparkles,
   CheckCircle2,
   Eye,
 } from 'lucide-react';

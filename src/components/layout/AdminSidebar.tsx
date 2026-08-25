@@ -5,7 +5,6 @@ import {
   BookOpen,
   Users,
   TrendingUp,
-  FileText,
   Settings,
   GraduationCap,
   LogOut,
@@ -13,84 +12,120 @@ import {
   ShieldCheck,
   Presentation,
   Search,
+  Briefcase,
+  MessageSquare,
+  Calendar,
+  BookOpenCheck,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from 'lucide-react';
 
+const EIXO_LOGO_URL = 'https://firebasestorage.googleapis.com/v0/b/project-b9727ea3-0bd2-4396-9ba.firebasestorage.app/o/EIXO%20LEARNING%2F69c8934d2da4206ba4be472d1706d867.png?alt=media&token=959b1659-1d45-48c5-8ab3-2ce0be113b6b';
+
 export const AdminSidebar: React.FC = () => {
-  const { currentView, navigateTo, logout, currentUser, switchUserRole } = useApp();
+  const {
+    currentView,
+    navigateTo,
+    logout,
+    currentUser,
+    switchUserRole,
+    sidebarCollapsed,
+    toggleSidebar,
+  } = useApp();
 
   const adminNavItems = [
     { id: 'admin-dashboard', label: 'Admin Overview', icon: LayoutDashboard },
     { id: 'admin-courses', label: 'Course Management', icon: BookOpen },
-    { id: 'courses', label: 'Browse Public Catalogue', icon: Search },
+    { id: 'courses', label: 'Course Library', icon: Search },
     { id: 'admin-students', label: 'Student Directory', icon: Users },
-    { id: 'admin-resources', label: 'Slides & Resource Library', icon: Presentation },
-    { id: 'admin-analytics', label: 'Enrolments & Analytics', icon: TrendingUp },
-    { id: 'account', label: 'Platform Settings', icon: Settings },
+    { id: 'jobs', label: 'Jobs & Careers', icon: Briefcase },
+    { id: 'community', label: 'Community', icon: MessageSquare },
+    { id: 'calendar', label: 'Calendar', icon: Calendar },
+    { id: 'blog', label: 'Accounting Insights', icon: BookOpenCheck },
+    { id: 'admin-resources', label: 'Resource Hub', icon: Presentation },
+    { id: 'admin-analytics', label: 'Analytics', icon: TrendingUp },
+    { id: 'account', label: 'Settings', icon: Settings },
   ];
 
   const isCoursesActive = currentView === 'courses' || currentView === 'course-detail';
+  const isBlogActive = currentView === 'blog' || currentView === 'blog-detail';
 
   return (
-    <aside className="w-64 bg-[#070a12] text-slate-300 border-r border-white/10 shrink-0 flex flex-col justify-between hidden md:flex h-screen sticky top-0 z-30">
-      <div className="p-4 space-y-5 overflow-y-auto">
-        
+    <aside
+      className={`${
+        sidebarCollapsed ? 'w-16' : 'w-[225px]'
+      } bg-[#070a12] text-slate-300 border-r border-white/10 shrink-0 flex flex-col justify-between hidden md:flex h-screen sticky top-0 z-30 transition-all duration-300 select-none`}
+    >
+      <div className="p-3 space-y-3 overflow-y-auto flex-1 custom-scrollbar">
         {/* Brand Header */}
-        <div className="pb-3 border-b border-white/10 flex items-center justify-between">
+        <div className={`pb-2.5 border-b border-white/10 flex items-center ${sidebarCollapsed ? 'justify-center flex-col gap-2' : 'justify-between'}`}>
           <button
             onClick={() => navigateTo('admin-dashboard')}
-            className="flex items-center gap-2.5 text-left group focus:outline-none"
+            className="flex items-center group focus:outline-none transition-transform hover:scale-102"
+            title="EIXO Faculty Admin"
           >
-            <div className="w-8 h-8 rounded-lg bg-indigo-600/30 text-indigo-400 border border-indigo-500/40 flex items-center justify-center font-extrabold text-sm shadow-[0_0_12px_rgba(99,102,241,0.2)]">
-              E
-            </div>
-            <div>
-              <div className="text-sm font-bold tracking-tight text-white flex items-center gap-1">
-                <span>EIXO</span>
-                <span className="text-indigo-400">LEARNING</span>
-              </div>
-              <span className="text-[9px] uppercase tracking-widest text-indigo-400 font-semibold block">
-                Faculty Admin Command
-              </span>
-            </div>
+            <img
+              src={EIXO_LOGO_URL}
+              alt="EIXO Learning"
+              referrerPolicy="no-referrer"
+              className={`${sidebarCollapsed ? 'h-8' : 'h-9'} w-auto object-contain drop-shadow-md`}
+            />
+          </button>
+
+          <button
+            onClick={toggleSidebar}
+            className="p-1 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+            title={sidebarCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
+          >
+            {sidebarCollapsed ? <PanelLeftOpen className="w-3.5 h-3.5 text-indigo-400" /> : <PanelLeftClose className="w-3.5 h-3.5" />}
           </button>
         </div>
 
         {/* Admin Badge Banner */}
-        <div className="p-3 bg-[#0d1220] rounded-xl border border-white/10 flex items-center gap-3 shadow-xs">
-          <div className="w-9 h-9 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold border border-indigo-500/30 shrink-0">
-            <ShieldCheck className="w-5 h-5" />
+        {currentUser && !sidebarCollapsed && (
+          <div className="p-2.5 bg-[#0d1220] rounded-2xl border border-white/10 flex items-center gap-2.5 shadow-xs animate-in fade-in">
+            <div className="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold border border-indigo-500/30 shrink-0">
+              <ShieldCheck className="w-4 h-4" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold text-white truncate">{currentUser?.name || 'Administrator'}</p>
+              <p className="text-[10px] text-indigo-300 font-semibold tracking-wide uppercase">Faculty Admin</p>
+            </div>
           </div>
-          <div className="min-w-0 flex-1">
-            <p className="text-xs font-bold text-white truncate">{currentUser?.name || 'Administrator'}</p>
-            <p className="text-[10px] text-indigo-300 font-semibold tracking-wide uppercase">Faculty Lead</p>
-          </div>
-        </div>
+        )}
 
         {/* Navigation */}
-        <div className="space-y-1">
-          <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">
-            Management
-          </div>
-          <nav className="space-y-1">
+        <div className="space-y-0.5">
+          {!sidebarCollapsed && (
+            <div className="px-2 py-1 text-[9px] font-bold uppercase tracking-wider text-slate-500">
+              Admin Command
+            </div>
+          )}
+          <nav className="space-y-0.5">
             {adminNavItems.map((item) => {
               const Icon = item.icon;
-              const isActive = item.id === 'courses' ? isCoursesActive : currentView === item.id;
+              let isActive = currentView === item.id;
+              if (item.id === 'courses' && isCoursesActive) isActive = true;
+              if (item.id === 'blog' && isBlogActive) isActive = true;
 
               return (
                 <button
                   key={item.id}
                   onClick={() => navigateTo(item.id)}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+                  title={sidebarCollapsed ? item.label : undefined}
+                  className={`w-full flex items-center ${
+                    sidebarCollapsed ? 'justify-center p-2' : 'justify-between px-2.5 py-1.5'
+                  } rounded-xl text-xs font-medium transition-all group ${
                     isActive
-                      ? 'bg-indigo-500/20 text-indigo-200 font-bold border-l-3 border-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.2)]'
-                      : 'text-slate-400 hover:bg-white/5 hover:text-white'
+                      ? 'bg-white/[0.04] text-white font-semibold border-l-2 border-indigo-500 pl-2'
+                      : 'text-slate-400 hover:bg-white/[0.03] hover:text-slate-200'
                   }`}
                 >
-                  <div className="flex items-center gap-3">
-                    <Icon className={`w-4 h-4 ${isActive ? 'text-indigo-400' : 'text-slate-400'}`} />
-                    <span>{item.label}</span>
+                  <div className="flex items-center gap-2.5">
+                    <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-indigo-400' : 'text-slate-400 group-hover:text-slate-300'}`} />
+                    {!sidebarCollapsed && <span className="truncate">{item.label}</span>}
                   </div>
-                  {isActive && <ChevronRight className="w-3.5 h-3.5 text-indigo-400" />}
+                  {!sidebarCollapsed && isActive && <ChevronRight className="w-3.5 h-3.5 text-indigo-400" />}
                 </button>
               );
             })}
@@ -99,21 +134,27 @@ export const AdminSidebar: React.FC = () => {
       </div>
 
       {/* Bottom Switcher */}
-      <div className="p-4 border-t border-white/10 space-y-1.5 bg-[#05080f]">
+      <div className={`p-2.5 border-t border-white/10 space-y-1 bg-[#05080f] ${sidebarCollapsed ? 'flex flex-col items-center' : ''}`}>
         <button
           onClick={() => switchUserRole('student')}
-          className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-emerald-300 bg-emerald-950/40 hover:bg-emerald-900/50 hover:text-white rounded-xl transition-colors border border-emerald-500/20"
+          title="Switch to Student Campus"
+          className={`w-full flex items-center ${
+            sidebarCollapsed ? 'justify-center p-2' : 'gap-2 px-2.5 py-1.5'
+          } text-xs font-medium text-emerald-300 bg-emerald-950/30 hover:bg-emerald-900/40 hover:text-white rounded-xl transition-colors border border-emerald-500/20`}
         >
-          <GraduationCap className="w-4 h-4 text-emerald-400" />
-          <span>Switch to Student View</span>
+          <GraduationCap className="w-4 h-4 text-emerald-400 shrink-0" />
+          {!sidebarCollapsed && <span className="truncate">Student Campus</span>}
         </button>
 
         <button
           onClick={logout}
-          className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-rose-400 hover:bg-rose-950/40 rounded-xl transition-colors"
+          title="Log out"
+          className={`w-full flex items-center ${
+            sidebarCollapsed ? 'justify-center p-2' : 'gap-2 px-2.5 py-1.5'
+          } text-xs font-medium text-rose-400 hover:bg-rose-950/30 rounded-xl transition-colors`}
         >
-          <LogOut className="w-4 h-4" />
-          <span>Log out</span>
+          <LogOut className="w-4 h-4 shrink-0" />
+          {!sidebarCollapsed && <span>Log out</span>}
         </button>
       </div>
     </aside>

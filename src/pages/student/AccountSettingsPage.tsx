@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { User, Mail, Briefcase, Shield, Check, Lock, Save, Sparkles } from 'lucide-react';
+import { User, Mail, Briefcase, Shield, Check, Lock, Save } from 'lucide-react';
 
 export const AccountSettingsPage: React.FC = () => {
   const { currentUser, updateCurrentUser, switchUserRole } = useApp();

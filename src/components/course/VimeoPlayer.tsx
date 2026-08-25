@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, Maximize, Minimize, CheckCircle, ExternalLink, ShieldAlert, Sparkles, RefreshCw } from 'lucide-react';
+import { Play, Maximize, Minimize, CheckCircle, ExternalLink, ShieldAlert, RefreshCw } from 'lucide-react';
 
 interface VimeoPlayerProps {
   vimeoId: string;

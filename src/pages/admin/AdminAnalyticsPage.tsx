@@ -7,7 +7,6 @@ import {
   CheckCircle2,
   BookOpen,
   Scale,
-  Sparkles,
 } from 'lucide-react';
 
 export const AdminAnalyticsPage: React.FC = () => {

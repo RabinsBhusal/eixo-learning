@@ -113,8 +113,8 @@ export const CourseDetailPage: React.FC = () => {
 
               {/* Metadata Badges */}
               <div className="flex flex-wrap items-center gap-4 text-xs text-slate-300 pt-2">
-                <div className="flex items-center gap-1 text-amber-400 font-bold">
-                  <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                <div className="flex items-center gap-1 text-emerald-400 font-bold">
+                  <Star className="w-4 h-4 fill-emerald-400 text-emerald-400" />
                   <span>{course.rating.toFixed(1)}</span>
                   <span className="text-slate-400 font-normal">({course.ratingCount} student ratings)</span>
                 </div>

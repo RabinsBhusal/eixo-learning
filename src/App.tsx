@@ -22,6 +22,12 @@ import { AdminCoursesPage } from './pages/admin/AdminCoursesPage';
 import { AdminStudentsPage } from './pages/admin/AdminStudentsPage';
 import { AdminResourcesPage } from './pages/admin/AdminResourcesPage';
 import { AdminAnalyticsPage } from './pages/admin/AdminAnalyticsPage';
+import { CommunityPage } from './pages/CommunityPage';
+import { BlogPage } from './pages/BlogPage';
+import { JobPortalPage } from './pages/JobPortalPage';
+import { CalendarPage } from './pages/CalendarPage';
+import { FreeResourcesPage } from './pages/FreeResourcesPage';
+import { PracticePage } from './pages/student/PracticePage';
 import { PortalAuthGate } from './components/layout/PortalAuthGate';
 import {
   Menu,
@@ -33,9 +39,14 @@ import {
   BookOpen,
   LayoutDashboard,
   Search,
-  Presentation,
+  CheckSquare,
   Award,
   User as UserIcon,
+  Briefcase,
+  MessageSquare,
+  Calendar,
+  BookOpenCheck,
+  Sparkles,
 } from 'lucide-react';
 
 const MainContent: React.FC = () => {
@@ -44,15 +55,13 @@ const MainContent: React.FC = () => {
 
   // Admin view check
   const isAdminView = currentView.startsWith('admin-');
-  const isStudentView = !isAdminView;
 
   const renderView = () => {
-    // If not authenticated and trying to access protected student or admin areas, show gate
+    // Protected student or admin areas
     if (!currentUser && (
       currentView === 'student-dashboard' ||
       currentView === 'my-courses' ||
       currentView === 'progress' ||
-      currentView === 'resources-hub' ||
       currentView === 'account' ||
       isAdminView
     )) {
@@ -77,12 +86,25 @@ const MainContent: React.FC = () => {
         return <StudentDashboard />;
       case 'my-courses':
         return <MyCoursesPage />;
+      case 'practice':
+        return <PracticePage />;
       case 'progress':
         return <ProgressBadgesPage />;
       case 'resources-hub':
         return <ResourcesHubPage />;
       case 'account':
         return <AccountSettingsPage />;
+      case 'community':
+        return <CommunityPage />;
+      case 'blog':
+      case 'blog-detail':
+        return <BlogPage />;
+      case 'jobs':
+        return <JobPortalPage />;
+      case 'calendar':
+        return <CalendarPage />;
+      case 'free-resources':
+        return <FreeResourcesPage />;
       case 'about':
         return <AboutPage />;
       case 'admin-dashboard':
@@ -106,7 +128,7 @@ const MainContent: React.FC = () => {
       <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(16,185,129,0.08),rgba(255,255,255,0))] -z-10" />
       <div className="fixed bottom-0 right-0 w-[500px] h-[500px] pointer-events-none bg-radial from-indigo-500/5 to-transparent blur-3xl -z-10" />
 
-      {/* UNLOGGED IN / GUEST TOP NAVBAR ONLY */}
+      {/* GUEST TOP NAVBAR (when not logged in) */}
       {!currentUser && <Navbar />}
 
       {/* MOBILE TOP BAR FOR LOGGED IN USERS (md:hidden) */}
@@ -142,7 +164,7 @@ const MainContent: React.FC = () => {
       {/* MOBILE DRAWER MODAL FOR AUTHENTICATED USERS */}
       {currentUser && mobileDrawerOpen && (
         <div className="md:hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex flex-col justify-between p-4 animate-in fade-in">
-          <div className="bg-[#0b0f19] border border-white/10 rounded-2xl p-5 space-y-4 shadow-2xl">
+          <div className="bg-[#0b0f19] border border-white/10 rounded-2xl p-5 space-y-4 shadow-2xl overflow-y-auto max-h-[85vh]">
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <div className="flex items-center gap-2.5">
                 <img
@@ -164,84 +186,89 @@ const MainContent: React.FC = () => {
               </button>
             </div>
 
-            <nav className="space-y-1.5 text-xs">
-              {currentUser.role === 'admin' ? (
-                <>
-                  <button
-                    onClick={() => { navigateTo('admin-dashboard'); setMobileDrawerOpen(false); }}
-                    className="w-full text-left p-2.5 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
-                  >
-                    <LayoutDashboard className="w-4 h-4 text-indigo-400" />
-                    <span>Admin Overview</span>
-                  </button>
-                  <button
-                    onClick={() => { navigateTo('admin-courses'); setMobileDrawerOpen(false); }}
-                    className="w-full text-left p-2.5 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
-                  >
-                    <BookOpen className="w-4 h-4 text-slate-400" />
-                    <span>Course Management</span>
-                  </button>
-                  <button
-                    onClick={() => { navigateTo('courses'); setMobileDrawerOpen(false); }}
-                    className="w-full text-left p-2.5 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
-                  >
-                    <Search className="w-4 h-4 text-slate-400" />
-                    <span>Browse Public Catalogue</span>
-                  </button>
-                  <button
-                    onClick={() => { navigateTo('admin-resources'); setMobileDrawerOpen(false); }}
-                    className="w-full text-left p-2.5 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
-                  >
-                    <Presentation className="w-4 h-4 text-amber-400" />
-                    <span>Google Slides & Resources</span>
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button
-                    onClick={() => { navigateTo('student-dashboard'); setMobileDrawerOpen(false); }}
-                    className="w-full text-left p-2.5 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5 font-bold text-emerald-400"
-                  >
-                    <LayoutDashboard className="w-4 h-4" />
-                    <span>Student Dashboard</span>
-                  </button>
-                  <button
-                    onClick={() => { navigateTo('my-courses'); setMobileDrawerOpen(false); }}
-                    className="w-full text-left p-2.5 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
-                  >
-                    <BookOpen className="w-4 h-4 text-slate-400" />
-                    <span>My Enrolled Courses</span>
-                  </button>
-                  <button
-                    onClick={() => { navigateTo('courses'); setMobileDrawerOpen(false); }}
-                    className="w-full text-left p-2.5 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
-                  >
-                    <Search className="w-4 h-4 text-emerald-400" />
-                    <span>Browse Courses</span>
-                  </button>
-                  <button
-                    onClick={() => { navigateTo('resources-hub'); setMobileDrawerOpen(false); }}
-                    className="w-full text-left p-2.5 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
-                  >
-                    <Presentation className="w-4 h-4 text-amber-400" />
-                    <span>Google Slides & PDF Decks</span>
-                  </button>
-                  <button
-                    onClick={() => { navigateTo('progress'); setMobileDrawerOpen(false); }}
-                    className="w-full text-left p-2.5 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
-                  >
-                    <Award className="w-4 h-4 text-slate-400" />
-                    <span>Progress & Badges</span>
-                  </button>
-                  <button
-                    onClick={() => { navigateTo('account'); setMobileDrawerOpen(false); }}
-                    className="w-full text-left p-2.5 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
-                  >
-                    <UserIcon className="w-4 h-4 text-slate-400" />
-                    <span>Account Settings</span>
-                  </button>
-                </>
-              )}
+            <nav className="space-y-1 text-xs">
+              <div className="px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-500">Learn</div>
+              <button
+                onClick={() => { navigateTo(currentUser.role === 'admin' ? 'admin-dashboard' : 'student-dashboard'); setMobileDrawerOpen(false); }}
+                className="w-full text-left p-2 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5 font-bold text-emerald-400"
+              >
+                <LayoutDashboard className="w-4 h-4" />
+                <span>Dashboard</span>
+              </button>
+              <button
+                onClick={() => { navigateTo('my-courses'); setMobileDrawerOpen(false); }}
+                className="w-full text-left p-2 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
+              >
+                <BookOpen className="w-4 h-4 text-slate-400" />
+                <span>My Courses</span>
+              </button>
+              <button
+                onClick={() => { navigateTo('courses'); setMobileDrawerOpen(false); }}
+                className="w-full text-left p-2 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
+              >
+                <Search className="w-4 h-4 text-slate-400" />
+                <span>Course Library</span>
+              </button>
+              <button
+                onClick={() => { navigateTo('practice'); setMobileDrawerOpen(false); }}
+                className="w-full text-left p-2 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
+              >
+                <CheckSquare className="w-4 h-4 text-emerald-400" />
+                <span>Practice & Tests</span>
+              </button>
+              <button
+                onClick={() => { navigateTo('blog'); setMobileDrawerOpen(false); }}
+                className="w-full text-left p-2 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
+              >
+                <BookOpenCheck className="w-4 h-4 text-slate-400" />
+                <span>Accounting Insights</span>
+              </button>
+
+              <div className="px-2 pt-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-500">Progress & Career</div>
+              <button
+                onClick={() => { navigateTo('progress'); setMobileDrawerOpen(false); }}
+                className="w-full text-left p-2 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
+              >
+                <Award className="w-4 h-4 text-emerald-400" />
+                <span>My Progress</span>
+              </button>
+              <button
+                onClick={() => { navigateTo('jobs'); setMobileDrawerOpen(false); }}
+                className="w-full text-left p-2 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
+              >
+                <Briefcase className="w-4 h-4 text-cyan-400" />
+                <span>Jobs & Careers</span>
+              </button>
+              <button
+                onClick={() => { navigateTo('community'); setMobileDrawerOpen(false); }}
+                className="w-full text-left p-2 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
+              >
+                <MessageSquare className="w-4 h-4 text-slate-400" />
+                <span>Community</span>
+              </button>
+              <button
+                onClick={() => { navigateTo('calendar'); setMobileDrawerOpen(false); }}
+                className="w-full text-left p-2 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
+              >
+                <Calendar className="w-4 h-4 text-indigo-400" />
+                <span>Calendar</span>
+              </button>
+              <button
+                onClick={() => { navigateTo('free-resources'); setMobileDrawerOpen(false); }}
+                className="w-full text-left p-2 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
+              >
+                <Sparkles className="w-4 h-4 text-amber-400" />
+                <span>Free Resources</span>
+              </button>
+
+              <div className="px-2 pt-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-500">Account</div>
+              <button
+                onClick={() => { navigateTo('account'); setMobileDrawerOpen(false); }}
+                className="w-full text-left p-2 rounded-xl hover:bg-white/5 text-white flex items-center gap-2.5"
+              >
+                <UserIcon className="w-4 h-4 text-slate-400" />
+                <span>Settings</span>
+              </button>
             </nav>
 
             <div className="pt-3 border-t border-white/10 space-y-2">
@@ -250,51 +277,56 @@ const MainContent: React.FC = () => {
                   switchUserRole(currentUser.role === 'admin' ? 'student' : 'admin');
                   setMobileDrawerOpen(false);
                 }}
-                className="w-full py-2 bg-white/5 hover:bg-white/10 text-slate-200 rounded-xl text-xs font-semibold"
+                className="w-full py-2 bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 rounded-xl text-xs font-semibold"
               >
-                Switch to {currentUser.role === 'admin' ? 'Student' : 'Admin'} Mode
+                Switch to {currentUser.role === 'admin' ? 'Student View' : 'Admin Command'}
               </button>
               <button
-                onClick={() => {
-                  logout();
-                  setMobileDrawerOpen(false);
-                }}
-                className="w-full py-2 bg-rose-950/40 text-rose-300 hover:bg-rose-900/50 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5"
+                onClick={() => { logout(); setMobileDrawerOpen(false); }}
+                className="w-full py-2 bg-rose-600/20 text-rose-300 border border-rose-500/30 rounded-xl text-xs font-semibold"
               >
-                <LogOut className="w-3.5 h-3.5" />
-                <span>Log Out</span>
+                Log Out
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* MAIN VIEWPORT BODY */}
-      {!currentUser ? (
-        // GUEST / UNLOGGED-IN: Full Width View
-        <main className="flex-1 relative z-0">{renderView()}</main>
+      {/* DESKTOP LAYOUT WITH SIDEBAR FOR AUTHENTICATED USERS */}
+      {currentUser ? (
+        <div className="flex-1 flex">
+          {/* Collapsible Student or Admin Sidebar */}
+          {currentUser.role === 'admin' ? <AdminSidebar /> : <StudentSidebar />}
+          
+          <div className="flex-1 flex flex-col min-w-0 bg-[#070a12]">
+            <main className="flex-1">
+              {renderView()}
+            </main>
+            <Footer />
+          </div>
+        </div>
       ) : (
-        // LOGGED-IN: Persistent Side Menu Shell (No Top Header!)
-        <div className="flex-1 flex max-w-full relative z-0">
-          {isAdminView ? <AdminSidebar /> : <StudentSidebar />}
-          <main className="flex-1 min-w-0 overflow-y-auto">{renderView()}</main>
+        /* GUEST / LANDING VIEW */
+        <div className="flex-1 flex flex-col">
+          <main className="flex-1">
+            {renderView()}
+          </main>
+          <Footer />
         </div>
       )}
 
-      {/* Footer on public unauthenticated views */}
-      {!currentUser && (currentView === 'landing' || currentView === 'about' || currentView === 'courses' || currentView === 'course-detail') && (
-        <Footer />
-      )}
-
+      {/* Global Auth Modal */}
       <AuthModal />
     </div>
   );
 };
 
-export default function App() {
+export const App: React.FC = () => {
   return (
     <AppProvider>
       <MainContent />
     </AppProvider>
   );
-}
+};
+
+export default App;

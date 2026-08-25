@@ -23,7 +23,6 @@ import {
   Monitor,
   Edit3,
   HelpCircle,
-  Sparkles,
   Share2,
   Presentation,
 } from 'lucide-react';

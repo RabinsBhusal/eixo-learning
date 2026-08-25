@@ -102,7 +102,7 @@ export const AdminResourcesPage: React.FC = () => {
       <div className="bg-[#0b0f19] rounded-2xl border border-white/10 p-6 space-y-4 shadow-xl">
         <div className="flex items-center justify-between border-b border-white/10 pb-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-xl">
+            <div className="p-2.5 bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 rounded-xl">
               <Presentation className="w-5 h-5" />
             </div>
             <div>
@@ -110,7 +110,7 @@ export const AdminResourcesPage: React.FC = () => {
               <p className="text-xs text-slate-400">Master slide presentations linked into the student player and resource library.</p>
             </div>
           </div>
-          <span className="text-xs font-mono text-amber-400 font-bold px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30">
+          <span className="text-xs font-mono text-emerald-400 font-bold px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30">
             {CURATED_SLIDE_DECKS.length} Active Google Slide Decks
           </span>
         </div>
@@ -123,7 +123,7 @@ export const AdminResourcesPage: React.FC = () => {
             >
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="px-2 py-0.5 bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded text-[10px] font-bold uppercase">
+                  <span className="px-2 py-0.5 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded text-[10px] font-bold uppercase">
                     {deck.category}
                   </span>
                   <span className="text-[10px] font-mono text-slate-400">{deck.totalSlides} Slides</span>
@@ -139,7 +139,7 @@ export const AdminResourcesPage: React.FC = () => {
                   rel="noopener noreferrer"
                   className="px-3 py-1.5 bg-[#17223b] hover:bg-[#1f2e50] border border-white/10 text-slate-200 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors"
                 >
-                  <ExternalLink className="w-3 h-3 text-amber-400" />
+                  <ExternalLink className="w-3 h-3 text-indigo-400" />
                   <span>Preview in Slides</span>
                 </a>
                 <a

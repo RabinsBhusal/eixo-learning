@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Scale, CheckCircle2, AlertCircle, RefreshCw, ArrowRight, BookOpen, Layers, Sparkles } from 'lucide-react';
+import { Scale, CheckCircle2, AlertCircle, RefreshCw, ArrowRight, BookOpen, Layers } from 'lucide-react';
 
 interface AccountOption {
   code: string;

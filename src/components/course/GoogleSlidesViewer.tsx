@@ -6,7 +6,6 @@ import {
   Maximize2,
   Minimize2,
   RefreshCw,
-  Sparkles,
   CheckCircle2,
   Copy,
   Check,
@@ -137,12 +136,12 @@ export const GoogleSlidesViewer: React.FC<GoogleSlidesViewerProps> = ({
       {/* Top Header Controls Bar */}
       <div className="bg-[#0b101d] border border-white/10 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+          <div className="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(99,102,241,0.2)]">
             <Presentation className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
                 Google Slides Integration
               </span>
               <span className="text-xs text-slate-400 font-medium hidden md:inline">
@@ -186,7 +185,7 @@ export const GoogleSlidesViewer: React.FC<GoogleSlidesViewerProps> = ({
             className="px-3 py-2 bg-[#141d33] hover:bg-[#1a2642] border border-white/10 text-slate-200 hover:text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors"
             title="Open in official Google Slides viewer"
           >
-            <ExternalLink className="w-3.5 h-3.5 text-amber-400" />
+            <ExternalLink className="w-3.5 h-3.5 text-indigo-400" />
             <span className="hidden sm:inline">Google Slides</span>
           </a>
 
@@ -215,9 +214,9 @@ export const GoogleSlidesViewer: React.FC<GoogleSlidesViewerProps> = ({
 
       {/* Custom Link Input Modal/Bar */}
       {showUrlInput && (
-        <form onSubmit={handleApplyCustomUrl} className="p-4 bg-[#0d1322] border border-amber-500/30 rounded-2xl flex flex-col sm:flex-row items-center gap-3 animate-in fade-in">
+        <form onSubmit={handleApplyCustomUrl} className="p-4 bg-[#0d1322] border border-indigo-500/30 rounded-2xl flex flex-col sm:flex-row items-center gap-3 animate-in fade-in">
           <div className="flex-1 w-full">
-            <label className="block text-[11px] font-bold text-amber-300 uppercase tracking-wide mb-1">
+            <label className="block text-[11px] font-bold text-indigo-300 uppercase tracking-wide mb-1">
               Link Your Own Google Slides Presentation URL:
             </label>
             <input
@@ -225,14 +224,14 @@ export const GoogleSlidesViewer: React.FC<GoogleSlidesViewerProps> = ({
               value={customSlideUrl}
               onChange={(e) => setCustomSlideUrl(e.target.value)}
               placeholder="https://docs.google.com/presentation/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit"
-              className="w-full bg-[#080d1a] border border-white/15 rounded-xl px-3.5 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-400"
+              className="w-full bg-[#080d1a] border border-white/15 rounded-xl px-3.5 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-400"
               required
             />
           </div>
           <div className="flex items-center gap-2 self-end sm:self-auto pt-2 sm:pt-4">
             <button
               type="submit"
-              className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs rounded-xl transition-colors shadow-md"
+              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition-colors shadow-md"
             >
               Embed Deck
             </button>
@@ -275,7 +274,7 @@ export const GoogleSlidesViewer: React.FC<GoogleSlidesViewerProps> = ({
             href={getPresentUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[11px] font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1"
+            className="text-[11px] font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-1"
           >
             <span>Present Mode</span>
             <ExternalLink className="w-3 h-3" />
@@ -296,16 +295,16 @@ export const GoogleSlidesViewer: React.FC<GoogleSlidesViewerProps> = ({
               }}
               className={`p-3 rounded-xl border text-left transition-all relative ${
                 isSelected
-                  ? 'bg-amber-500/10 border-amber-500/60 shadow-[0_0_15px_rgba(245,158,11,0.15)] ring-1 ring-amber-500/40'
+                  ? 'bg-indigo-500/10 border-indigo-500/60 shadow-[0_0_15px_rgba(99,102,241,0.15)] ring-1 ring-indigo-500/40'
                   : 'bg-[#0b0f19] hover:bg-[#12182b] border-white/10'
               }`}
             >
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-400">
                   {deck.category}
                 </span>
                 {isSelected && (
-                  <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
                 )}
               </div>
               <p className="text-xs font-bold text-white mt-1 line-clamp-1">{deck.title}</p>

@@ -9,7 +9,6 @@ import {
   BookOpen,
   Download,
   ShieldCheck,
-  Sparkles,
   Zap,
   Layers,
 } from 'lucide-react';
@@ -73,7 +72,7 @@ export const ProgressBadgesPage: React.FC = () => {
       {/* Badges Section */}
       <div className="space-y-4">
         <h2 className="text-base font-bold text-white flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-emerald-400" />
+          <Award className="w-4 h-4 text-emerald-400" />
           <span>Accounting Competency Badges</span>
         </h2>
 

@@ -12,7 +12,6 @@ import {
   CheckCircle2,
   Clock,
   Layers,
-  Sparkles,
 } from 'lucide-react';
 
 export const AdminDashboard: React.FC = () => {

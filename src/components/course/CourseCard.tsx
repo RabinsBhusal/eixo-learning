@@ -83,8 +83,8 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, featured = false
             <span className="font-medium text-emerald-300 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded">
               {course.subcategory}
             </span>
-            <div className="flex items-center gap-1 text-amber-400 font-semibold">
-              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+            <div className="flex items-center gap-1 text-emerald-400 font-semibold">
+              <Star className="w-3.5 h-3.5 fill-emerald-400 text-emerald-400" />
               <span>{course.rating.toFixed(1)}</span>
               <span className="text-slate-500 font-normal">({course.ratingCount})</span>
             </div>

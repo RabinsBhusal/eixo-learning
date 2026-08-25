@@ -5,7 +5,7 @@ import {
   Shield,
   Lock,
   ArrowRight,
-  Sparkles,
+  PlayCircle,
   CheckCircle2,
   LogIn,
   KeyRound,
@@ -67,7 +67,7 @@ export const PortalAuthGate: React.FC<PortalAuthGateProps> = ({
         {/* 1-Click Instant Demo Persona Access */}
         <div className="bg-[#0f1628] border border-white/10 rounded-xl p-5 max-w-lg mx-auto mb-8 text-left">
           <div className="flex items-center gap-2 mb-3">
-            <Sparkles className="w-4 h-4 text-emerald-400" />
+            <PlayCircle className="w-4 h-4 text-emerald-400" />
             <span className="text-xs font-bold text-white uppercase tracking-wider">
               Instant 1-Click Demo Login
             </span>

@@ -3,7 +3,6 @@ import {
   Monitor,
   CheckCircle2,
   HelpCircle,
-  Sparkles,
   ArrowRight,
   ExternalLink,
   Layers,
@@ -652,7 +651,7 @@ export const SoftwareScreenshotsViewer: React.FC = () => {
         {/* Hotspot Walkthrough Cards */}
         <div className="space-y-3 pt-2">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-emerald-400" />
+            <Layers className="w-4 h-4 text-emerald-400" />
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300">
               Interactive Hotspot Explanations ({currentScreen.hotspots.length})
             </h3>

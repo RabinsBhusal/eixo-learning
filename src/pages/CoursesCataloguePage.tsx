@@ -3,7 +3,7 @@ import { useApp } from '../context/AppContext';
 import { CourseCard } from '../components/course/CourseCard';
 import { CourseCardSkeleton } from '../components/ui/Skeleton';
 import { CourseCategory, CourseLevel } from '../types';
-import { Search, Filter, BookOpen, Layers, Sparkles, CheckCircle2, RotateCcw } from 'lucide-react';
+import { Search, Filter, BookOpen, Layers, Flame, CheckCircle2, RotateCcw } from 'lucide-react';
 
 export const CoursesCataloguePage: React.FC = () => {
   const { courses, searchQuery, setSearchQuery } = useApp();

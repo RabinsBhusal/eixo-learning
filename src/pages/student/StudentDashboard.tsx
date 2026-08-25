@@ -11,7 +11,6 @@ import {
   TrendingUp,
   FileSpreadsheet,
   Layers,
-  Sparkles,
 } from 'lucide-react';
 
 export const StudentDashboard: React.FC = () => {

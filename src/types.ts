@@ -182,3 +182,123 @@ export interface LessonNote {
   content: string;
   updatedAt: string;
 }
+
+// ================= COMMUNITY DISCUSSIONS TYPES =================
+export type CommunityCategory =
+  | 'xero-software'
+  | 'double-entry'
+  | 'acca-cima-exams'
+  | 'career-interviews'
+  | 'tax-vat-uk'
+  | 'general-discussion';
+
+export interface CommunityComment {
+  id: string;
+  threadId: string;
+  authorId: string;
+  authorName: string;
+  authorAvatar?: string;
+  authorRole: UserRole;
+  content: string;
+  upvotes: number;
+  upvotedUserIds: string[];
+  createdAt: string;
+  isFacultyVerified?: boolean;
+}
+
+export interface CommunityThread {
+  id: string;
+  title: string;
+  content: string;
+  category: CommunityCategory;
+  tags: string[];
+  authorId: string;
+  authorName: string;
+  authorAvatar?: string;
+  authorRole: UserRole;
+  upvotes: number;
+  upvotedUserIds: string[];
+  viewCount: number;
+  commentsCount: number;
+  createdAt: string;
+  pinned?: boolean;
+  isSolved?: boolean;
+  comments: CommunityComment[];
+}
+
+// ================= BLOG POST TYPES =================
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  coverImage: string;
+  category: string;
+  readTime: string;
+  authorName: string;
+  authorTitle: string;
+  authorAvatar: string;
+  publishedAt: string;
+  tags: string[];
+  seoKeywords: string[];
+  relatedCourseId?: string;
+  views: number;
+  likes: number;
+}
+
+// ================= JOB PORTAL TYPES =================
+export type JobExperienceLevel = 'Graduate / Trainee' | 'Junior' | 'Mid-Level' | 'Senior' | 'Management';
+export type JobType = 'Full-Time' | 'Hybrid' | 'Remote UK' | 'Contract';
+
+export interface JobPosting {
+  id: string;
+  title: string;
+  company: string;
+  companyLogo?: string;
+  location: string;
+  jobType: JobType;
+  experienceLevel: JobExperienceLevel;
+  salaryMin: number;
+  salaryMax: number;
+  currency: string;
+  postedAt: string;
+  deadline: string;
+  description: string;
+  keyResponsibilities: string[];
+  requirements: string[];
+  softwareRequired: ('Xero' | 'QuickBooks' | 'Sage' | 'Excel' | 'PowerBI')[];
+  featured?: boolean;
+  applicantsCount: number;
+}
+
+export interface JobApplication {
+  id: string;
+  jobId: string;
+  userId: string;
+  applicantName: string;
+  applicantEmail: string;
+  coverNote?: string;
+  appliedAt: string;
+  status: 'Submitted' | 'In Review' | 'Shortlisted' | 'Interview Scheduled';
+}
+
+// ================= CALENDAR & SCHEDULE TYPES =================
+export type CalendarEventType = 'live-masterclass' | 'office-hours' | 'exam-workshop' | 'study-group' | 'assignment-deadline';
+
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  description: string;
+  eventType: CalendarEventType;
+  startTime: string; // ISO format e.g. 2026-08-25T14:00:00Z
+  endTime: string;
+  tutorName: string;
+  tutorAvatar: string;
+  meetingLink?: string;
+  location: string;
+  courseId?: string;
+  attendeesCount: number;
+  isRegistered?: boolean;
+}
+

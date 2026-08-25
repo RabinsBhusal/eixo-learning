@@ -10,6 +10,12 @@ import {
   QuizAttempt,
   CourseProgress,
   LessonNote,
+  CommunityThread,
+  CommunityComment,
+  BlogPost,
+  JobPosting,
+  JobApplication,
+  CalendarEvent,
 } from '../types';
 import {
   INITIAL_USERS,
@@ -20,6 +26,12 @@ import {
   INITIAL_QUIZZES,
   INITIAL_PROGRESS,
 } from '../data/initialData';
+import {
+  INITIAL_COMMUNITY_THREADS,
+  INITIAL_BLOG_POSTS,
+  INITIAL_JOB_POSTINGS,
+  INITIAL_CALENDAR_EVENTS,
+} from '../data/portalData';
 
 interface Notification {
   id: string;
@@ -46,6 +58,38 @@ interface AppContextType {
   progress: CourseProgress[];
   quizAttempts: QuizAttempt[];
   notes: LessonNote[];
+
+  // Community
+  threads: CommunityThread[];
+  selectedThreadId: string | null;
+  setSelectedThreadId: (id: string | null) => void;
+  upvoteThread: (threadId: string) => void;
+  addThread: (title: string, content: string, category: any, tags: string[]) => void;
+  addComment: (threadId: string, content: string) => void;
+  upvoteComment: (threadId: string, commentId: string) => void;
+
+  // Blog
+  blogPosts: BlogPost[];
+  selectedBlogSlug: string | null;
+  setSelectedBlogSlug: (slug: string | null) => void;
+  likeBlogPost: (postId: string) => void;
+
+  // Job Portal
+  jobs: JobPosting[];
+  savedJobIds: string[];
+  appliedJobIds: string[];
+  selectedJobId: string | null;
+  setSelectedJobId: (id: string | null) => void;
+  applyToJob: (jobId: string, note?: string) => void;
+  toggleSaveJob: (jobId: string) => void;
+
+  // Calendar
+  calendarEvents: CalendarEvent[];
+  toggleRegisterEvent: (eventId: string) => void;
+
+  // Sidebar Collapse
+  sidebarCollapsed: boolean;
+  toggleSidebar: () => void;
 
   // Student Actions
   enrollCourse: (courseId: string) => void;
@@ -99,7 +143,7 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-const STORAGE_KEYS = {
+  const STORAGE_KEYS = {
   USERS: 'eixo_users_v1',
   CURRENT_USER_ID: 'eixo_current_user_id_v1',
   COURSES: 'eixo_courses_v1',
@@ -110,6 +154,13 @@ const STORAGE_KEYS = {
   PROGRESS: 'eixo_progress_v1',
   ATTEMPTS: 'eixo_quiz_attempts_v1',
   NOTES: 'eixo_lesson_notes_v1',
+  THREADS: 'eixo_threads_v1',
+  BLOGS: 'eixo_blogs_v1',
+  JOBS: 'eixo_jobs_v1',
+  SAVED_JOBS: 'eixo_saved_jobs_v1',
+  APPLIED_JOBS: 'eixo_applied_jobs_v1',
+  CALENDAR: 'eixo_calendar_v1',
+  SIDEBAR_COLLAPSED: 'eixo_sidebar_collapsed_v1',
 };
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -203,6 +254,80 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
 
+  // Community State
+  const [threads, setThreads] = useState<CommunityThread[]>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.THREADS);
+      return saved ? JSON.parse(saved) : INITIAL_COMMUNITY_THREADS;
+    } catch {
+      return INITIAL_COMMUNITY_THREADS;
+    }
+  });
+  const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null);
+
+  // Blog State
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.BLOGS);
+      return saved ? JSON.parse(saved) : INITIAL_BLOG_POSTS;
+    } catch {
+      return INITIAL_BLOG_POSTS;
+    }
+  });
+  const [selectedBlogSlug, setSelectedBlogSlug] = useState<string | null>(null);
+
+  // Job Portal State
+  const [jobs, setJobs] = useState<JobPosting[]>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.JOBS);
+      return saved ? JSON.parse(saved) : INITIAL_JOB_POSTINGS;
+    } catch {
+      return INITIAL_JOB_POSTINGS;
+    }
+  });
+  const [savedJobIds, setSavedJobIds] = useState<string[]>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.SAVED_JOBS);
+      return saved ? JSON.parse(saved) : ['job-1'];
+    } catch {
+      return ['job-1'];
+    }
+  });
+  const [appliedJobIds, setAppliedJobIds] = useState<string[]>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.APPLIED_JOBS);
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [selectedJobId, setSelectedJobId] = useState<string | null>(null);
+
+  // Calendar State
+  const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.CALENDAR);
+      return saved ? JSON.parse(saved) : INITIAL_CALENDAR_EVENTS;
+    } catch {
+      return INITIAL_CALENDAR_EVENTS;
+    }
+  });
+
+  // Collapsible Sidebar State
+  const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.SIDEBAR_COLLAPSED);
+      return saved ? JSON.parse(saved) : false;
+    } catch {
+      return false;
+    }
+  });
+
+  const toggleSidebar = () => {
+    setSidebarCollapsed((prev) => !prev);
+  };
+
+
   // Navigation State
   const [currentView, setCurrentView] = useState<string>('landing');
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
@@ -258,6 +383,34 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.NOTES, JSON.stringify(notes));
   }, [notes]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.THREADS, JSON.stringify(threads));
+  }, [threads]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.BLOGS, JSON.stringify(blogPosts));
+  }, [blogPosts]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.JOBS, JSON.stringify(jobs));
+  }, [jobs]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.SAVED_JOBS, JSON.stringify(savedJobIds));
+  }, [savedJobIds]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.APPLIED_JOBS, JSON.stringify(appliedJobIds));
+  }, [appliedJobIds]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.CALENDAR, JSON.stringify(calendarEvents));
+  }, [calendarEvents]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.SIDEBAR_COLLAPSED, JSON.stringify(sidebarCollapsed));
+  }, [sidebarCollapsed]);
 
   const currentUser = users.find((u) => u.id === currentUserId) || null;
 
@@ -793,6 +946,183 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     addNotification('Student enrollment revoked.', 'info');
   };
 
+  // Community Handlers
+  const upvoteThread = (threadId: string) => {
+    if (!currentUser) {
+      openAuthModal('login');
+      return;
+    }
+    setThreads((prev) =>
+      prev.map((th) => {
+        if (th.id === threadId) {
+          const hasVoted = th.upvotedUserIds.includes(currentUser.id);
+          const newUpvoted = hasVoted
+            ? th.upvotedUserIds.filter((id) => id !== currentUser.id)
+            : [...th.upvotedUserIds, currentUser.id];
+          return {
+            ...th,
+            upvotes: hasVoted ? th.upvotes - 1 : th.upvotes + 1,
+            upvotedUserIds: newUpvoted,
+          };
+        }
+        return th;
+      })
+    );
+  };
+
+  const addThread = (title: string, content: string, category: any, tags: string[]) => {
+    if (!currentUser) {
+      openAuthModal('login');
+      return;
+    }
+    const newThread: CommunityThread = {
+      id: `thread-${Date.now()}`,
+      title,
+      content,
+      category,
+      tags,
+      authorId: currentUser.id,
+      authorName: currentUser.name,
+      authorAvatar: currentUser.avatar,
+      authorRole: currentUser.role,
+      upvotes: 1,
+      upvotedUserIds: [currentUser.id],
+      viewCount: 1,
+      commentsCount: 0,
+      createdAt: new Date().toISOString(),
+      comments: [],
+    };
+    setThreads((prev) => [newThread, ...prev]);
+    addNotification('Discussion thread posted successfully!', 'success');
+  };
+
+  const addComment = (threadId: string, content: string) => {
+    if (!currentUser) {
+      openAuthModal('login');
+      return;
+    }
+    const newComment: CommunityComment = {
+      id: `comment-${Date.now()}`,
+      threadId,
+      authorId: currentUser.id,
+      authorName: currentUser.name,
+      authorAvatar: currentUser.avatar,
+      authorRole: currentUser.role,
+      content,
+      upvotes: 0,
+      upvotedUserIds: [],
+      createdAt: new Date().toISOString(),
+      isFacultyVerified: currentUser.role === 'admin',
+    };
+    setThreads((prev) =>
+      prev.map((th) => {
+        if (th.id === threadId) {
+          return {
+            ...th,
+            commentsCount: th.commentsCount + 1,
+            comments: [...th.comments, newComment],
+          };
+        }
+        return th;
+      })
+    );
+    addNotification('Reply posted!', 'success');
+  };
+
+  const upvoteComment = (threadId: string, commentId: string) => {
+    if (!currentUser) {
+      openAuthModal('login');
+      return;
+    }
+    setThreads((prev) =>
+      prev.map((th) => {
+        if (th.id === threadId) {
+          const updatedComments = th.comments.map((c) => {
+            if (c.id === commentId) {
+              const hasVoted = c.upvotedUserIds.includes(currentUser.id);
+              return {
+                ...c,
+                upvotes: hasVoted ? c.upvotes - 1 : c.upvotes + 1,
+                upvotedUserIds: hasVoted
+                  ? c.upvotedUserIds.filter((id) => id !== currentUser.id)
+                  : [...c.upvotedUserIds, currentUser.id],
+              };
+            }
+            return c;
+          });
+          return { ...th, comments: updatedComments };
+        }
+        return th;
+      })
+    );
+  };
+
+  // Blog Handlers
+  const likeBlogPost = (postId: string) => {
+    setBlogPosts((prev) =>
+      prev.map((post) => {
+        if (post.id === postId) {
+          return { ...post, likes: post.likes + 1 };
+        }
+        return post;
+      })
+    );
+    addNotification('Liked article!', 'info');
+  };
+
+  // Job Portal Handlers
+  const applyToJob = (jobId: string, note?: string) => {
+    if (!currentUser) {
+      openAuthModal('login');
+      return;
+    }
+    if (!appliedJobIds.includes(jobId)) {
+      setAppliedJobIds((prev) => [...prev, jobId]);
+      setJobs((prev) =>
+        prev.map((j) => (j.id === jobId ? { ...j, applicantsCount: j.applicantsCount + 1 } : j))
+      );
+      addNotification('Application submitted to employer!', 'success');
+    }
+  };
+
+  const toggleSaveJob = (jobId: string) => {
+    setSavedJobIds((prev) => {
+      const isSaved = prev.includes(jobId);
+      if (isSaved) {
+        addNotification('Job removed from saved list.', 'info');
+        return prev.filter((id) => id !== jobId);
+      } else {
+        addNotification('Job saved to your career tracker!', 'success');
+        return [...prev, jobId];
+      }
+    });
+  };
+
+  // Calendar Event Handler
+  const toggleRegisterEvent = (eventId: string) => {
+    if (!currentUser) {
+      openAuthModal('login');
+      return;
+    }
+    setCalendarEvents((prev) =>
+      prev.map((ev) => {
+        if (ev.id === eventId) {
+          const isReg = !ev.isRegistered;
+          addNotification(
+            isReg ? `Registered for "${ev.title}"` : `Cancelled registration for "${ev.title}"`,
+            isReg ? 'success' : 'info'
+          );
+          return {
+            ...ev,
+            isRegistered: isReg,
+            attendeesCount: isReg ? ev.attendeesCount + 1 : ev.attendeesCount - 1,
+          };
+        }
+        return ev;
+      })
+    );
+  };
+
   const resetToInitialData = () => {
     localStorage.clear();
     setUsers(INITIAL_USERS);
@@ -805,6 +1135,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setProgress(INITIAL_PROGRESS);
     setQuizAttempts([]);
     setNotes([]);
+    setThreads(INITIAL_COMMUNITY_THREADS);
+    setBlogPosts(INITIAL_BLOG_POSTS);
+    setJobs(INITIAL_JOB_POSTINGS);
+    setSavedJobIds(['job-1']);
+    setAppliedJobIds([]);
+    setCalendarEvents(INITIAL_CALENDAR_EVENTS);
+    setSidebarCollapsed(false);
     addNotification('Platform reset to pristine initial demo state.', 'info');
   };
 
@@ -826,6 +1163,28 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         progress,
         quizAttempts,
         notes,
+        threads,
+        selectedThreadId,
+        setSelectedThreadId,
+        upvoteThread,
+        addThread,
+        addComment,
+        upvoteComment,
+        blogPosts,
+        selectedBlogSlug,
+        setSelectedBlogSlug,
+        likeBlogPost,
+        jobs,
+        savedJobIds,
+        appliedJobIds,
+        selectedJobId,
+        setSelectedJobId,
+        applyToJob,
+        toggleSaveJob,
+        calendarEvents,
+        toggleRegisterEvent,
+        sidebarCollapsed,
+        toggleSidebar,
         enrollCourse,
         unenrollCourse,
         markLessonComplete,
