@@ -5,7 +5,6 @@ import { DoubleEntrySandbox } from '../../components/course/DoubleEntrySandbox';
 import { InteractiveQuiz } from '../../components/course/InteractiveQuiz';
 import { SlideDeckViewer } from '../../components/course/SlideDeckViewer';
 import { GoogleSlidesViewer } from '../../components/course/GoogleSlidesViewer';
-import { SoftwareScreenshotsViewer } from '../../components/course/SoftwareScreenshotsViewer';
 import { CertificateModal } from '../../components/ui/CertificateModal';
 import {
   CheckCircle2,
@@ -20,7 +19,6 @@ import {
   ChevronDown,
   ChevronUp,
   Scale,
-  Monitor,
   Edit3,
   HelpCircle,
   Share2,
@@ -75,7 +73,7 @@ export const CoursePlayerPage: React.FC = () => {
   const percentComplete = progress?.percentComplete || 0;
 
   // Active tab under video player
-  const [activeTab, setActiveTab] = useState<'notes' | 'slides' | 'resources' | 'quiz' | 'software' | 'sandbox' | 'scratchpad'>('notes');
+  const [activeTab, setActiveTab] = useState<'notes' | 'slides' | 'resources' | 'quiz' | 'sandbox' | 'scratchpad'>('notes');
   const [personalNote, setPersonalNote] = useState<string>('');
   const [showCertificateModal, setShowCertificateModal] = useState<boolean>(false);
 
@@ -269,18 +267,6 @@ export const CoursePlayerPage: React.FC = () => {
                 )}
 
                 <button
-                  onClick={() => setActiveTab('software')}
-                  className={`px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all border-b-2 flex items-center gap-1.5 whitespace-nowrap ${
-                    activeTab === 'software'
-                      ? 'border-emerald-400 text-emerald-300 bg-[#0b0f19] shadow-sm'
-                      : 'border-transparent text-slate-400 hover:text-slate-200'
-                  }`}
-                >
-                  <Monitor className="w-4 h-4 text-emerald-400" />
-                  <span>Real Software Walkthrough</span>
-                </button>
-
-                <button
                   onClick={() => setActiveTab('sandbox')}
                   className={`px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all border-b-2 flex items-center gap-1.5 whitespace-nowrap ${
                     activeTab === 'sandbox'
@@ -437,43 +423,7 @@ export const CoursePlayerPage: React.FC = () => {
                   </div>
                 )}
 
-                {/* 5. REAL SOFTWARE WALKTHROUGH TAB */}
-                {activeTab === 'software' && (
-                  <div className="space-y-6">
-                    <SoftwareScreenshotsViewer />
-
-                    {activeLesson.softwareGuide && (
-                      <div className="mt-6 p-5 bg-[#12182b] rounded-xl border border-white/10 space-y-3 shadow-lg">
-                        <div className="flex items-center gap-2 border-b border-white/10 pb-3">
-                          <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded font-bold text-xs">
-                            {activeLesson.softwareGuide.software}
-                          </span>
-                          <h3 className="text-sm font-bold text-white">{activeLesson.softwareGuide.title}</h3>
-                        </div>
-
-                        <ol className="space-y-2.5 text-xs text-slate-300">
-                          {activeLesson.softwareGuide.steps.map((step, idx) => (
-                            <li key={idx} className="p-3 bg-[#0b0f19] rounded-lg border border-white/10 flex items-start gap-3 shadow-sm">
-                              <span className="w-5 h-5 rounded-full bg-emerald-600 text-white text-[11px] font-bold flex items-center justify-center shrink-0 shadow-sm">
-                                {idx + 1}
-                              </span>
-                              <span className="leading-relaxed font-medium text-slate-200">{step}</span>
-                            </li>
-                          ))}
-                        </ol>
-
-                        {activeLesson.softwareGuide.proTip && (
-                          <div className="p-4 bg-emerald-950/60 text-white rounded-xl border border-emerald-500/30 text-xs shadow-md">
-                            <span className="font-bold uppercase tracking-wider text-emerald-300 block mb-1">Faculty Software Pro-Tip:</span>
-                            <p className="text-slate-300">{activeLesson.softwareGuide.proTip}</p>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* 6. DOUBLE ENTRY SANDBOX TAB */}
+                {/* 5. DOUBLE ENTRY SANDBOX TAB */}
                 {activeTab === 'sandbox' && (
                   <div>
                     <DoubleEntrySandbox />

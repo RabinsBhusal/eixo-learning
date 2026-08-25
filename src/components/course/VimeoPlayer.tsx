@@ -86,10 +86,8 @@ export const VimeoPlayer: React.FC<VimeoPlayerProps> = ({
       {/* Under-player Quick Bar */}
       <div className="mt-3 flex flex-wrap items-center justify-between gap-3 bg-[#0d1220] p-3 rounded-xl border border-white/10 shadow-lg text-slate-300">
         <div className="flex items-center gap-2">
-          <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse" />
-          <span className="text-xs font-medium text-slate-200">HD 1080p Vimeo Video Player</span>
-          <span className="text-slate-600">•</span>
-          <span className="text-xs text-slate-400 font-mono">ID: {cleanId}</span>
+          <div className="w-2 h-2 rounded-full bg-emerald-400" />
+          <span className="text-xs font-semibold text-slate-200 truncate max-w-sm sm:max-w-md">{title}</span>
         </div>
 
         <div className="flex items-center gap-2 ml-auto">

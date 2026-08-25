@@ -143,24 +143,24 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-  const STORAGE_KEYS = {
-  USERS: 'eixo_users_v1',
-  CURRENT_USER_ID: 'eixo_current_user_id_v1',
-  COURSES: 'eixo_courses_v1',
-  MODULES: 'eixo_modules_v1',
-  LESSONS: 'eixo_lessons_v1',
-  RESOURCES: 'eixo_resources_v1',
-  QUIZZES: 'eixo_quizzes_v1',
-  PROGRESS: 'eixo_progress_v1',
-  ATTEMPTS: 'eixo_quiz_attempts_v1',
-  NOTES: 'eixo_lesson_notes_v1',
-  THREADS: 'eixo_threads_v1',
-  BLOGS: 'eixo_blogs_v1',
-  JOBS: 'eixo_jobs_v1',
-  SAVED_JOBS: 'eixo_saved_jobs_v1',
-  APPLIED_JOBS: 'eixo_applied_jobs_v1',
-  CALENDAR: 'eixo_calendar_v1',
-  SIDEBAR_COLLAPSED: 'eixo_sidebar_collapsed_v1',
+const STORAGE_KEYS = {
+  USERS: 'eixo_users_v2',
+  CURRENT_USER_ID: 'eixo_current_user_id_v2',
+  COURSES: 'eixo_courses_v2',
+  MODULES: 'eixo_modules_v2',
+  LESSONS: 'eixo_lessons_v2',
+  RESOURCES: 'eixo_resources_v2',
+  QUIZZES: 'eixo_quizzes_v2',
+  PROGRESS: 'eixo_progress_v2',
+  ATTEMPTS: 'eixo_quiz_attempts_v2',
+  NOTES: 'eixo_lesson_notes_v2',
+  THREADS: 'eixo_threads_v2',
+  BLOGS: 'eixo_blogs_v2',
+  JOBS: 'eixo_jobs_v2',
+  SAVED_JOBS: 'eixo_saved_jobs_v2',
+  APPLIED_JOBS: 'eixo_applied_jobs_v2',
+  CALENDAR: 'eixo_calendar_v2',
+  SIDEBAR_COLLAPSED: 'eixo_sidebar_collapsed_v2',
 };
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

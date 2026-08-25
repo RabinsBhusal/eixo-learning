@@ -7,6 +7,11 @@ import {
   Quiz,
   CourseProgress,
 } from '../types';
+import {
+  ADDITIONAL_MODULES,
+  ADDITIONAL_LESSONS,
+  ADDITIONAL_QUIZZES,
+} from './coursesContentData';
 
 export const INITIAL_USERS: User[] = [
   {
@@ -17,7 +22,16 @@ export const INITIAL_USERS: User[] = [
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
     jobTitle: 'Junior Financial Analyst',
     company: 'Northfield Advisory',
-    enrolledCourseIds: ['course-xero-1', 'course-fin-acc-1', 'course-corp-fin-1'],
+    enrolledCourseIds: [
+      'course-xero-1',
+      'course-fin-acc-1',
+      'course-corp-fin-1',
+      'course-quickbooks-1',
+      'course-mgmt-acc-1',
+      'course-sage-1',
+      'course-ratio-1',
+      'course-payroll-1',
+    ],
     createdAt: '2026-01-15T09:00:00Z',
   },
   {
@@ -548,6 +562,7 @@ export const INITIAL_MODULES: Module[] = [
     order: 4,
     duration: '3h 15m',
   },
+  ...ADDITIONAL_MODULES,
 ];
 
 export const INITIAL_LESSONS: Lesson[] = [
@@ -1056,6 +1071,7 @@ Financial statements must satisfy:
       explanation: 'Total debits (£25,000) equal total credits (£5,000 + £20,000 = £25,000).',
     },
   },
+  ...ADDITIONAL_LESSONS,
 ];
 
 export const INITIAL_RESOURCES: Resource[] = [
@@ -1436,6 +1452,7 @@ export const INITIAL_QUIZZES: Quiz[] = [
       },
     ],
   },
+  ...ADDITIONAL_QUIZZES,
 ];
 
 export const INITIAL_PROGRESS: CourseProgress[] = [
@@ -1450,17 +1467,57 @@ export const INITIAL_PROGRESS: CourseProgress[] = [
   {
     userId: 'user-student-1',
     courseId: 'course-fin-acc-1',
-    completedLessonIds: ['les-fin-1-1'],
+    completedLessonIds: ['les-fin-1-1', 'les-fin-1-2'],
     lastAccessedLessonId: 'les-fin-2-1',
     lastAccessedAt: '2026-02-20T14:10:00Z',
-    percentComplete: 20,
+    percentComplete: 28,
   },
   {
     userId: 'user-student-1',
     courseId: 'course-corp-fin-1',
-    completedLessonIds: [],
-    lastAccessedLessonId: undefined,
+    completedLessonIds: ['les-corp-1-1'],
+    lastAccessedLessonId: 'les-corp-2-1',
     lastAccessedAt: '2026-02-18T10:00:00Z',
+    percentComplete: 25,
+  },
+  {
+    userId: 'user-student-1',
+    courseId: 'course-quickbooks-1',
+    completedLessonIds: ['les-qbo-1-1'],
+    lastAccessedLessonId: 'les-qbo-2-1',
+    lastAccessedAt: '2026-02-22T16:30:00Z',
+    percentComplete: 20,
+  },
+  {
+    userId: 'user-student-1',
+    courseId: 'course-mgmt-acc-1',
+    completedLessonIds: ['les-mgmt-1-1'],
+    lastAccessedLessonId: 'les-mgmt-2-1',
+    lastAccessedAt: '2026-02-21T11:15:00Z',
+    percentComplete: 20,
+  },
+  {
+    userId: 'user-student-1',
+    courseId: 'course-sage-1',
+    completedLessonIds: [],
+    lastAccessedLessonId: 'les-sage-1-1',
+    lastAccessedAt: '2026-02-19T08:00:00Z',
+    percentComplete: 0,
+  },
+  {
+    userId: 'user-student-1',
+    courseId: 'course-ratio-1',
+    completedLessonIds: ['les-ratio-1-1'],
+    lastAccessedLessonId: 'les-ratio-2-1',
+    lastAccessedAt: '2026-02-24T13:40:00Z',
+    percentComplete: 33,
+  },
+  {
+    userId: 'user-student-1',
+    courseId: 'course-payroll-1',
+    completedLessonIds: [],
+    lastAccessedLessonId: 'les-payroll-1-1',
+    lastAccessedAt: '2026-02-17T15:20:00Z',
     percentComplete: 0,
   },
 ];
