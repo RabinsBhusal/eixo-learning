@@ -37,21 +37,21 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      {/* Top Announcement Banner with refined emerald/slate accent */}
+      {/* Top Announcement Banner with refined emerald green background */}
       {showPromoBanner && (
-        <div className="bg-[#0b1322] border-b border-emerald-500/20 text-slate-200 font-medium text-xs py-2 px-4 sticky top-0 z-50 shadow-md">
+        <div className="bg-emerald-900 border-b border-emerald-700/50 text-white font-medium text-xs py-2 px-4 sticky top-0 z-50 shadow-md">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
             <div className="flex-1 flex items-center justify-center gap-2 text-center text-[11px] sm:text-xs">
-              <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-extrabold text-[10px] tracking-wide uppercase">
+              <span className="bg-emerald-950/40 text-emerald-100 border border-emerald-600/40 px-2 py-0.5 rounded font-extrabold text-[10px] tracking-wide uppercase">
                 New
               </span>
-              <span className="font-semibold text-slate-300">
+              <span className="font-semibold text-emerald-50">
                 Career-Ready Cloud Accounting & Xero Certification Tracks
               </span>
-              <span className="text-slate-500 hidden sm:inline">•</span>
+              <span className="text-emerald-700/50 hidden sm:inline">•</span>
               <button
                 onClick={() => navigateTo('courses')}
-                className="text-emerald-400 hover:text-emerald-300 font-bold transition-colors inline-flex items-center gap-1 hover:underline"
+                className="text-amber-300 hover:text-amber-200 font-bold transition-colors inline-flex items-center gap-1 hover:underline"
               >
                 <span>Courses from £19.99</span>
                 <ArrowRight className="w-3 h-3 inline" />
@@ -59,7 +59,7 @@ export const Navbar: React.FC = () => {
             </div>
             <button
               onClick={() => setShowPromoBanner(false)}
-              className="text-slate-400 hover:text-white p-0.5 rounded transition-colors shrink-0"
+              className="text-emerald-300 hover:text-white p-0.5 rounded transition-colors shrink-0"
               title="Dismiss announcement"
             >
               <X className="w-3.5 h-3.5" />

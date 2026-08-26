@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { useApp } from '../context/AppContext';
 import { CourseCard } from '../components/course/CourseCard';
 import {
@@ -16,6 +16,34 @@ import {
 
 export const LandingPage: React.FC = () => {
   const { courses, navigateTo, openAuthModal, setSearchQuery, currentUser, login, switchUserRole } = useApp();
+
+  const { scrollY } = useScroll();
+
+  // Create subtle, performant parallax coordinates/elements
+  const yBgOrbs1 = useTransform(scrollY, [0, 2000], [0, -150]);
+  const yBgOrbs2 = useTransform(scrollY, [0, 2000], [0, 100]);
+  const yBgOrbs3 = useTransform(scrollY, [0, 2500], [0, -220]);
+
+  // Floating Hero Badges (Parallax Scroll Offset)
+  const yHeroBadgeLeft = useTransform(scrollY, [0, 800], [0, -60]);
+  const yHeroBadgeRight = useTransform(scrollY, [0, 800], [0, 50]);
+
+  // Floating Background Decorative shapes / text marks
+  const yBgCross1 = useTransform(scrollY, [0, 1500], [0, -180]);
+  const yBgCross2 = useTransform(scrollY, [0, 2500], [0, 120]);
+  const yBgCross3 = useTransform(scrollY, [0, 3000], [0, -250]);
+
+  // Staggered depth for Ecosystem Cards
+  const yEcosystem1 = useTransform(scrollY, [300, 1500], [0, -35]);
+  const yEcosystem2 = useTransform(scrollY, [300, 1500], [0, -10]);
+  const yEcosystem3 = useTransform(scrollY, [300, 1500], [0, -50]);
+  const yEcosystem4 = useTransform(scrollY, [300, 1500], [0, -20]);
+  const yEcosystem5 = useTransform(scrollY, [300, 1500], [0, -40]);
+
+  // Staggered depth for Testimonials
+  const yTestimonial1 = useTransform(scrollY, [1000, 2500], [0, -40]);
+  const yTestimonial2 = useTransform(scrollY, [1000, 2500], [0, 10]);
+  const yTestimonial3 = useTransform(scrollY, [1000, 2500], [0, -25]);
 
   // Udemy-Style Category Tabs State
   const [selectedSkillTab, setSelectedSkillTab] = useState<'all' | 'xero' | 'double-entry' | 'statements' | 'finance'>('all');
@@ -106,6 +134,34 @@ export const LandingPage: React.FC = () => {
             ease: 'easeInOut',
           }}
           className="absolute bottom-1/4 left-10 w-[500px] h-[500px] rounded-full bg-indigo-600/5 blur-[140px]"
+        />
+      </div>
+
+      {/* Scroll-Linked Parallax Background Elements */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* Subtle high-precision coordinates */}
+        <motion.div style={{ y: yBgCross1 }} className="absolute top-[12%] left-[6%] text-emerald-500/15 font-mono text-[10px] tracking-widest select-none hidden md:block">
+          + LAT_51.5074_LON_0.1278 // EIXO_LONDON_CAMPUS
+        </motion.div>
+        <motion.div style={{ y: yBgCross2 }} className="absolute top-[42%] right-[8%] text-cyan-500/15 font-mono text-[10px] tracking-widest select-none hidden md:block">
+          [LEDGER_EQUILIBRIUM_ENGINE_ACTIVE]
+        </motion.div>
+        <motion.div style={{ y: yBgCross3 }} className="absolute top-[72%] left-[4%] text-indigo-500/15 font-mono text-[10px] tracking-widest select-none hidden md:block">
+          &lt;INTELLIGENT_REAL_TIME_RECON_OK&gt;
+        </motion.div>
+
+        {/* Floating Glass Rings */}
+        <motion.div
+          style={{ y: yBgOrbs1 }}
+          className="absolute top-[18%] left-[-150px] w-[500px] h-[500px] rounded-full border border-emerald-500/10 bg-transparent blur-xs"
+        />
+        <motion.div
+          style={{ y: yBgOrbs2 }}
+          className="absolute top-[55%] right-[-200px] w-[650px] h-[650px] rounded-full border border-cyan-500/10 bg-transparent blur-xs"
+        />
+        <motion.div
+          style={{ y: yBgOrbs3 }}
+          className="absolute top-[78%] left-[8%] w-[400px] h-[400px] rounded-full border border-indigo-500/10 bg-transparent blur-sm"
         />
       </div>
 
@@ -297,8 +353,8 @@ export const LandingPage: React.FC = () => {
 
                 {/* Floating Parallax Badge 1: Top Right (DEAD CLIC Balance) */}
                 <motion.div
+                  style={{ y: yHeroBadgeRight }}
                   animate={{
-                    y: [0, -10, 0],
                     rotate: [0, 1.5, 0],
                   }}
                   transition={{
@@ -323,8 +379,8 @@ export const LandingPage: React.FC = () => {
 
                 {/* Floating Parallax Badge 2: Bottom Left (Xero Reconciliation) */}
                 <motion.div
+                  style={{ y: yHeroBadgeLeft }}
                   animate={{
-                    y: [0, 10, 0],
                     rotate: [0, -1.5, 0],
                   }}
                   transition={{
@@ -616,7 +672,8 @@ export const LandingPage: React.FC = () => {
           
           {/* 1. Community */}
           <motion.div
-            whileHover={{ y: -8, scale: 1.02 }}
+            style={{ y: yEcosystem1 }}
+            whileHover={{ scale: 1.02 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             onClick={() => navigateTo('community')}
             className="p-6 bg-[#0b0f19] hover:bg-[#0e1628] rounded-3xl border border-white/10 hover:border-emerald-500/40 transition-all cursor-pointer shadow-lg space-y-4 group"
@@ -643,7 +700,8 @@ export const LandingPage: React.FC = () => {
 
           {/* 2. Job Portal */}
           <motion.div
-            whileHover={{ y: -8, scale: 1.02 }}
+            style={{ y: yEcosystem2 }}
+            whileHover={{ scale: 1.02 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             onClick={() => navigateTo('jobs')}
             className="p-6 bg-[#0b0f19] hover:bg-[#0e1628] rounded-3xl border border-white/10 hover:border-emerald-500/40 transition-all cursor-pointer shadow-lg space-y-4 group"
@@ -670,7 +728,8 @@ export const LandingPage: React.FC = () => {
 
           {/* 3. Calendar */}
           <motion.div
-            whileHover={{ y: -8, scale: 1.02 }}
+            style={{ y: yEcosystem3 }}
+            whileHover={{ scale: 1.02 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             onClick={() => navigateTo('calendar')}
             className="p-6 bg-[#0b0f19] hover:bg-[#0e1628] rounded-3xl border border-white/10 hover:border-emerald-500/40 transition-all cursor-pointer shadow-lg space-y-4 group"
@@ -697,7 +756,8 @@ export const LandingPage: React.FC = () => {
 
           {/* 4. Blog */}
           <motion.div
-            whileHover={{ y: -8, scale: 1.02 }}
+            style={{ y: yEcosystem4 }}
+            whileHover={{ scale: 1.02 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             onClick={() => navigateTo('blog')}
             className="p-6 bg-[#0b0f19] hover:bg-[#0e1628] rounded-3xl border border-white/10 hover:border-emerald-500/40 transition-all cursor-pointer shadow-lg space-y-4 group"
@@ -724,7 +784,8 @@ export const LandingPage: React.FC = () => {
 
           {/* 5. Free Resources & Excel Models */}
           <motion.div
-            whileHover={{ y: -8, scale: 1.02 }}
+            style={{ y: yEcosystem5 }}
+            whileHover={{ scale: 1.02 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             onClick={() => navigateTo('free-resources')}
             className="p-6 bg-[#0b0f19] hover:bg-[#0e1628] rounded-3xl border border-white/10 hover:border-emerald-500/40 transition-all cursor-pointer shadow-lg space-y-4 group md:col-span-2 lg:col-span-2"
@@ -913,12 +974,15 @@ export const LandingPage: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((t) => (
-            <motion.div
-              key={t.id}
-              whileHover={{ y: -6 }}
-              className="p-6 bg-[#0b0f19] rounded-2xl border border-white/10 shadow-xl flex flex-col justify-between space-y-4 hover:border-emerald-500/40 transition-all text-left"
-            >
+          {testimonials.map((t, index) => {
+            const yOffset = index === 0 ? yTestimonial1 : index === 1 ? yTestimonial2 : yTestimonial3;
+            return (
+              <motion.div
+                key={t.id}
+                style={{ y: yOffset }}
+                whileHover={{ scale: 1.02 }}
+                className="p-6 bg-[#0b0f19] rounded-2xl border border-white/10 shadow-xl flex flex-col justify-between space-y-4 hover:border-emerald-500/40 transition-all text-left"
+              >
               <div className="space-y-3">
                 {/* 5 Stars */}
                 <div className="flex items-center gap-1 text-emerald-400">
@@ -961,8 +1025,9 @@ export const LandingPage: React.FC = () => {
                 </div>
               </div>
             </motion.div>
-          ))}
-        </div>
+          );
+        })}
+      </div>
       </section>
 
       {/* 6. ACCREDITATION & CERTIFICATE BANNER */}
