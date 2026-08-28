@@ -93,12 +93,12 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, featured = false
   return (
     <div
       onClick={handleCardClick}
-      className={`group bg-[#fafbfc] rounded-none border border-slate-200/90 hover:border-emerald-500 hover:shadow-xl hover:shadow-emerald-950/5 hover:ring-1 hover:ring-emerald-500/30 transition-all duration-300 overflow-hidden flex flex-col cursor-pointer text-slate-800 ${
+      className={`group bg-[#0b0f19] rounded-xl border border-white/10 hover:border-emerald-500 hover:shadow-xl hover:shadow-emerald-950/20 hover:ring-1 hover:ring-emerald-500/30 transition-all duration-300 overflow-hidden flex flex-col cursor-pointer text-slate-100 ${
         featured ? 'ring-2 ring-emerald-500/60 shadow-lg' : ''
       }`}
     >
       {/* Thumbnail Area */}
-      <div className="relative aspect-16/9 w-full bg-slate-100 overflow-hidden">
+      <div className="relative aspect-16/9 w-full bg-slate-900/40 overflow-hidden">
         <img
           src={course.thumbnail}
           alt={course.title}
@@ -108,7 +108,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, featured = false
 
         {/* Category & Level pills inside thumbnail */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 pointer-events-none">
-          <span className="px-2 py-0.5 bg-slate-900/90 text-white text-[10px] font-bold uppercase tracking-wider rounded">
+          <span className="px-2 py-0.5 bg-slate-950/90 text-white text-[10px] font-bold uppercase tracking-wider rounded">
             {course.category}
           </span>
           {course.level && (
@@ -124,7 +124,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, featured = false
             {course.softwareUsed.map((sw) => (
               <span
                 key={sw}
-                className="px-1.5 py-0.5 bg-white border border-slate-200 text-slate-800 text-[9px] font-extrabold uppercase rounded shadow-xs"
+                className="px-1.5 py-0.5 bg-[#070a12] border border-white/10 text-slate-300 text-[9px] font-extrabold uppercase rounded shadow-xs"
               >
                 {sw}
               </span>
@@ -137,26 +137,26 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, featured = false
       <div className="p-4 flex-1 flex flex-col justify-between space-y-3.5">
         <div className="space-y-1.5">
           {/* Institution / Author (at the top of text description) */}
-          <span className="text-[#5c6f84] text-[11px] font-bold tracking-wide uppercase block">
+          <span className="text-emerald-400 text-[10px] sm:text-[11px] font-bold tracking-wide uppercase block">
             {getInstitution(course.id)}
           </span>
 
           {/* Title */}
-          <h3 className="font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-emerald-600 transition-colors leading-snug line-clamp-2">
+          <h3 className="font-extrabold text-sm sm:text-base text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
             {course.title}
           </h3>
 
           {/* Progress Bar if enrolled */}
           {isEnrolled && (
-            <div className="mt-2 space-y-1 bg-slate-50 p-2 rounded border border-slate-100">
-              <div className="flex items-center justify-between text-[10px] font-bold text-slate-600">
+            <div className="mt-2 space-y-1 bg-[#12182b] p-2 rounded border border-white/10">
+              <div className="flex items-center justify-between text-[10px] font-bold text-slate-300">
                 <span className="flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                   Your Study Progress
                 </span>
-                <span className="text-emerald-600">{percentComplete}%</span>
+                <span className="text-emerald-400">{percentComplete}%</span>
               </div>
-              <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+              <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-emerald-500 rounded-full transition-all duration-300"
                   style={{ width: `${percentComplete}%` }}
@@ -167,22 +167,22 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, featured = false
         </div>
 
         {/* Bottom Metadata & Find Out More Button */}
-        <div className="pt-2.5 border-t border-slate-100 space-y-3">
+        <div className="pt-2.5 border-t border-white/10 space-y-3">
           {/* Duration & Lessons Row */}
-          <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-600 font-semibold">
+          <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-300 font-semibold">
             <div className="flex items-center gap-1.5">
-              <Hourglass className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+              <Hourglass className="w-3.5 h-3.5 text-slate-400 shrink-0" />
               <span>{getWeeks(course.id)}</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <Timer className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+              <Timer className="w-3.5 h-3.5 text-slate-400 shrink-0" />
               <span>{getWorkload(course.id)}</span>
             </div>
           </div>
 
           {/* Inclusion Tier */}
-          <div className="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
-            <Infinity className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+          <div className="flex items-center gap-1.5 text-[11px] text-slate-400 font-medium">
+            <Infinity className="w-3.5 h-3.5 text-slate-500 shrink-0" />
             <span>{getInclusionLabel(course.id)}</span>
           </div>
         </div>
@@ -191,7 +191,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, featured = false
       {/* Find out more Emerald Button */}
       <button
         onClick={handleActionClick}
-        className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider transition-colors text-center shrink-0 border-t border-transparent"
+        className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider transition-colors text-center shrink-0 border-t border-white/5"
       >
         {isEnrolled ? 'Continue Study' : 'Find out more'}
       </button>
