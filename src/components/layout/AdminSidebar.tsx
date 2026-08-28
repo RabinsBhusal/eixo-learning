@@ -54,7 +54,7 @@ export const AdminSidebar: React.FC = () => {
     <aside
       className={`${
         sidebarCollapsed ? 'w-16' : 'w-[225px]'
-      } bg-[#070a12] text-slate-300 border-r border-white/10 shrink-0 flex flex-col justify-between hidden md:flex h-screen sticky top-0 z-30 transition-all duration-300 select-none`}
+      } bg-[#070a12] text-slate-300 border-r border-white/10 shrink-0 flex flex-col justify-between hidden md:flex h-[calc(100vh-3.5rem)] sticky top-14 z-30 transition-all duration-300 select-none`}
     >
       <div className="p-3 space-y-3 overflow-y-auto flex-1 custom-scrollbar">
         {/* Brand Header */}
